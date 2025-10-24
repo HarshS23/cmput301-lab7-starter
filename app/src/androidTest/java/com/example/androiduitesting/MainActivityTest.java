@@ -67,9 +67,19 @@ public class MainActivityTest {
         )).atPosition(0).check(matches((withText("Edmonton"))));
     }
 
+    @Test
+    public void testBackButton(){
+        // add city
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Calgary"));
+        onView(withId(R.id.button_confirm)).perform(click());
 
-//    @Test
-//    public void testBackButton(){
-//
-//    }
+        onData(is("Calgary")).inAdapterView(withId(R.id.city_list)).perform(click());
+
+        onView(withId(R.id.textView)).check(matches(isDisplayed())).check(matches(withText("Calgary")));
+
+        onView(withId(R.id.BackButton)).perform(click());
+
+        onView(withId(R.id.city_list)).check(matches(isDisplayed()));
+    }
 }
